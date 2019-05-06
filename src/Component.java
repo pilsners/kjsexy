@@ -7,5 +7,6 @@ public class Component {
     public Component(int prijs, String naam, String type) {
         this.prijs = prijs;
         this.naam = naam;
+        this.type = type;
     }
 }
