@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Berekening {
@@ -35,7 +36,22 @@ public class Berekening {
     }
 
     public void maxComponent() {
-
-
+        double laagsteUptime = 100;
+        for (Component component : componenten){
+            if (component.getUptime()< laagsteUptime) {
+                laagsteUptime = component.getUptime();
+            }
+        }
+        System.out.println("Het component met de laagste uptime heeft een uptime van "+laagsteUptime);
+        laagsteUptime = laagsteUptime/100;
+        double teller = 0;
+        double gedeelte = 1-laagsteUptime;
+        for (double i = 0; i < uptime/100;){
+            teller++;
+            double totaal = Math.pow(gedeelte, teller);
+            i = 1-totaal;
+            System.out.println(i);
+        }
+        System.out.println("Voor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
     }
 }

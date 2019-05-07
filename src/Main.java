@@ -8,5 +8,7 @@ public class Main {
         } else {
             System.out.println("No solution was found!");
         }
+        Berekening a = new Berekening(99.99);
+        a.maxComponent();
     }
 }
