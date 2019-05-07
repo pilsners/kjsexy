@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Berekening {
 
     public double uptime;
@@ -31,5 +32,10 @@ public class Berekening {
                 //per component 20x
             }
         }
+    }
+
+    public void maxComponent() {
+
+
     }
 }
