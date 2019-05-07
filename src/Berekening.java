@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class Berekening {
 
-    public static double uptime;
-    public static ArrayList<Component> componenten;
+    public double uptime;
+    public ArrayList<Component> componenten;
 
     public Berekening(double uptime) {
         this.uptime = uptime;
@@ -23,6 +23,13 @@ public class Berekening {
     }
 
     public void algoritme() {
-
+        //maximaal 20 componenten
+        int aantalComponenten = 20;
+        Component best;
+        for(Component c : componenten) {
+            for(int i = 0; i < aantalComponenten; i++) {
+                //per component 20x
+            }
+        }
     }
 }
