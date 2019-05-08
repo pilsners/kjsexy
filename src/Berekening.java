@@ -36,22 +36,60 @@ public class Berekening {
     }
 
     public void maxComponent() {
-        double laagsteUptime = 100;
+        double laagsteUptimeWeb = 100;
         for (Component component : componenten){
-            if (component.getUptime()< laagsteUptime) {
-                laagsteUptime = component.getUptime();
+            if (component.getUptime()< laagsteUptimeWeb && component.getType().equals("Webserver")) {
+                laagsteUptimeWeb = component.getUptime();
             }
         }
-        System.out.println("Het component met de laagste uptime heeft een uptime van "+laagsteUptime);
-        laagsteUptime = laagsteUptime/100;
-        double teller = 0;
-        double gedeelte = 1-laagsteUptime;
-        for (double i = 0; i < uptime/100;){
-            teller++;
-            double totaal = Math.pow(gedeelte, teller);
-            i = 1-totaal;
-            System.out.println(i);
+        System.out.println("De webserver met de laagste uptime heeft een uptime van "+laagsteUptimeWeb);
+
+        double laagsteUptimeDB = 100;
+        for (Component component : componenten){
+            if (component.getUptime()< laagsteUptimeDB && component.getType().equals("DBserver")) {
+                laagsteUptimeDB = component.getUptime();
+            }
         }
-        System.out.println("Voor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
+        System.out.println("De DBserver met de laagste uptime heeft een uptime van "+laagsteUptimeDB);
+
+        double laagsteUptime = laagsteUptimeDB;
+        double bijnaLaagsteUptime = laagsteUptimeWeb;
+        if(laagsteUptime>laagsteUptimeWeb){
+            laagsteUptime = laagsteUptimeWeb;
+            bijnaLaagsteUptime = laagsteUptimeDB;
+        }
+
+        laagsteUptime = laagsteUptime/100;
+        bijnaLaagsteUptime = bijnaLaagsteUptime/100;
+
+        double teller = 0;
+        double extraTeller = 0;
+        double serverLaagste = 1-laagsteUptime;
+        double laagsteExtraStap = 10;
+        double serverBijnaLaagste = 1-bijnaLaagsteUptime;
+        double bijnaLaagsteExtraStap;
+        double lasti = -1;
+        boolean nextStep = false;
+        for (double i = 0; i < uptime/100;){
+            if(lasti != i && !nextStep) {
+                lasti = i;
+                teller++;
+                double totaal = (Math.pow(serverLaagste, teller));
+                laagsteExtraStap = 1 - totaal;
+                i = laagsteExtraStap * bijnaLaagsteUptime;
+                System.out.println(i);
+                System.out.println("--------------------------"+teller);
+            } else {
+                nextStep = true;
+                teller++;
+                extraTeller++;
+                double totaalBijnaLaagste = (Math.pow(serverBijnaLaagste,extraTeller));
+                bijnaLaagsteExtraStap = 1- totaalBijnaLaagste;
+                i = bijnaLaagsteExtraStap * laagsteExtraStap *0.99999 * 0.99999;
+                System.out.println(i);
+                System.out.println("------------------------------------------------------"+extraTeller);
+            }
+        }
+        System.out.println("Voor de uptime van " + uptime + " zijn " + (teller + 1) + " componenten nodig");
     }
 }
