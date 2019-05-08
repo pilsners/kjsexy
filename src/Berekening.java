@@ -75,23 +75,34 @@ public class Berekening {
         double uptimeLaagste = 0;
         double uptimeBijnaLaagste = 0;
 
-        for (double i = 0; i < uptimeServers;){
+        for (double i = 0; i < rekenUptime;){
                 teller++;
-                double totaal = (Math.pow(serverLaagste, teller));
-                i = 1-totaal;
-                uptimeLaagste = i;
+                double lastI = i;
+                double deel = (Math.pow(serverLaagste, teller));
+                double serverTotaal = 1-deel;
+                uptimeLaagste = serverTotaal;
+                i = serverTotaal * uptimeServers * 0.99999 * 0.99999;
                 System.out.println(i);
                 System.out.println("--------------------------"+teller);
+                if(lastI==i){
+                    break;
+                }
             }
         System.out.println("----------------------------------------------------------Dit is van " + typeLaagste);
-        for (double i = 0; i < uptimeServers;){
+
+        for (double i = 0; i < rekenUptime;){
                 teller++;
                 extraTeller++;
-                double totaal = (Math.pow(serverBijnaLaagste, extraTeller));
-                i = 1-totaal;
-                uptimeBijnaLaagste = i;
+                double lastI = i;
+                double deel = (Math.pow(serverBijnaLaagste, extraTeller));
+                double serverTotaal = 1-deel;
+                uptimeBijnaLaagste = serverTotaal;
+                i = serverTotaal * uptimeServers * 0.99999 * 0.99999;
                 System.out.println(i);
                 System.out.println("--------------------------"+teller);
+                if(lastI==i){
+                    break;
+            }
         }
         System.out.println("----------------------------------------------------------Dit is van " + typeBijnaLaagste);
 
