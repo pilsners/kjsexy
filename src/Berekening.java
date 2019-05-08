@@ -53,43 +53,50 @@ public class Berekening {
         System.out.println("De DBserver met de laagste uptime heeft een uptime van "+laagsteUptimeDB);
 
         double laagsteUptime = laagsteUptimeDB;
+        String typeLaagste = "DB server";
         double bijnaLaagsteUptime = laagsteUptimeWeb;
+        String typeBijnaLaagste = "Web server";
         if(laagsteUptime>laagsteUptimeWeb){
             laagsteUptime = laagsteUptimeWeb;
+            typeLaagste = "Web server";
             bijnaLaagsteUptime = laagsteUptimeDB;
+            typeBijnaLaagste = "DB server";
         }
 
         laagsteUptime = laagsteUptime/100;
         bijnaLaagsteUptime = bijnaLaagsteUptime/100;
+        double rekenUptime = uptime/100;
 
         double teller = 0;
         double extraTeller = 0;
         double serverLaagste = 1-laagsteUptime;
-        double laagsteExtraStap = 10;
         double serverBijnaLaagste = 1-bijnaLaagsteUptime;
-        double bijnaLaagsteExtraStap;
-        double lasti = -1;
-        boolean nextStep = false;
-        for (double i = 0; i < uptime/100;){
-            if(lasti != i && !nextStep) {
-                lasti = i;
+        double uptimeServers = Math.sqrt(rekenUptime/0.99999*0.99999);
+        double uptimeLaagste = 0;
+        double uptimeBijnaLaagste = 0;
+
+        for (double i = 0; i < uptimeServers;){
                 teller++;
                 double totaal = (Math.pow(serverLaagste, teller));
-                laagsteExtraStap = 1 - totaal;
-                i = laagsteExtraStap * bijnaLaagsteUptime;
+                i = 1-totaal;
+                uptimeLaagste = i;
                 System.out.println(i);
                 System.out.println("--------------------------"+teller);
-            } else {
-                nextStep = true;
+            }
+        System.out.println("----------------------------------------------------------Dit is van " + typeLaagste);
+        for (double i = 0; i < uptimeServers;){
                 teller++;
                 extraTeller++;
-                double totaalBijnaLaagste = (Math.pow(serverBijnaLaagste,extraTeller));
-                bijnaLaagsteExtraStap = 1- totaalBijnaLaagste;
-                i = bijnaLaagsteExtraStap * laagsteExtraStap *0.99999 * 0.99999;
+                double totaal = (Math.pow(serverBijnaLaagste, extraTeller));
+                i = 1-totaal;
+                uptimeBijnaLaagste = i;
                 System.out.println(i);
-                System.out.println("------------------------------------------------------"+extraTeller);
-            }
+                System.out.println("--------------------------"+teller);
         }
-        System.out.println("Voor de uptime van " + uptime + " zijn " + (teller + 1) + " componenten nodig");
+        System.out.println("----------------------------------------------------------Dit is van " + typeBijnaLaagste);
+
+        System.out.println("Berekening: "+uptimeLaagste+" * "+uptimeBijnaLaagste+" * 0.99999 * 0.99999 = "+uptimeLaagste*uptimeBijnaLaagste*0.99999*0.99999);
+        System.out.println("\nVoor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
+        }
     }
-}
+
