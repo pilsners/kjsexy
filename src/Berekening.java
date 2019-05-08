@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Collections;
+
 
 
 public class Berekening {
@@ -74,10 +74,11 @@ public class Berekening {
         double uptimeServers = Math.sqrt(rekenUptime/0.99999*0.99999);
         double uptimeLaagste = 0;
         double uptimeBijnaLaagste = 0;
+        double lastI = 0;
 
         for (double i = 0; i < rekenUptime;){
                 teller++;
-                double lastI = i;
+                lastI = i;
                 double deel = (Math.pow(serverLaagste, teller));
                 double serverTotaal = 1-deel;
                 uptimeLaagste = serverTotaal;
@@ -93,7 +94,7 @@ public class Berekening {
         for (double i = 0; i < rekenUptime;){
                 teller++;
                 extraTeller++;
-                double lastI = i;
+                lastI = i;
                 double deel = (Math.pow(serverBijnaLaagste, extraTeller));
                 double serverTotaal = 1-deel;
                 uptimeBijnaLaagste = serverTotaal;
@@ -105,9 +106,13 @@ public class Berekening {
             }
         }
         System.out.println("----------------------------------------------------------Dit is van " + typeBijnaLaagste);
-
         System.out.println("Berekening: "+uptimeLaagste+" * "+uptimeBijnaLaagste+" * 0.99999 * 0.99999 = "+uptimeLaagste*uptimeBijnaLaagste*0.99999*0.99999);
-        System.out.println("\nVoor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
+
+        if (lastI >= rekenUptime) {
+            System.out.println("Voor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
+        }else{
+            System.out.println("De uptime "+uptime+" is niet te halen met de huidige componenten");
+        }
         }
     }
 
