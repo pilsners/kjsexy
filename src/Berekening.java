@@ -106,9 +106,11 @@ public class Berekening {
             }
         }
         System.out.println("----------------------------------------------------------Dit is van " + typeBijnaLaagste);
-        System.out.println("Berekening: "+uptimeLaagste+" * "+uptimeBijnaLaagste+" * 0.99999 * 0.99999 = "+uptimeLaagste*uptimeBijnaLaagste*0.99999*0.99999);
+        double berekendeUptime = uptimeLaagste*uptimeBijnaLaagste*0.99999*0.99999;
+        System.out.println("Berekening: "+uptimeLaagste+" * "+uptimeBijnaLaagste+" * 0.99999 * 0.99999 = "+berekendeUptime);
 
-        if (lastI >= rekenUptime) {
+
+        if (berekendeUptime >= rekenUptime) {
             System.out.println("Voor de uptime van " + uptime + " zijn " + teller + " componenten nodig");
         }else{
             System.out.println("De uptime "+uptime+" is niet te halen met de huidige componenten");
